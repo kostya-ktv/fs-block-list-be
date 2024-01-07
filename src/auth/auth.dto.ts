@@ -30,4 +30,10 @@ export class SessionDTO {
 
   @ApiProperty()
   email: string;
+
+  @ApiProperty()
+  iat: number;
+
+  @ApiProperty()
+  exp: number;
 }
