@@ -14,7 +14,7 @@ export class AccountDTO {
 }
 
 export class AccountPatchDTO {
-  @ApiProperty()
+  @ApiProperty({ required: false })
   @IsBoolean()
   @IsOptional()
   isBlockingEnabled: boolean;
