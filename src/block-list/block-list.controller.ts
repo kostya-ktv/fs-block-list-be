@@ -16,34 +16,43 @@ import { SessionInfo } from 'src/auth/session-info.decarator';
 import {
   BlockListDTO,
   BlockListItemCreateDTO,
+  BlockListItemDTO,
   BlockListQueryDTO,
 } from 'src/block-list/block-list.dto';
+import { BlockListService } from 'src/block-list/block-list.service';
 
 @Controller('block-list')
 @UseGuards(AuthGuard)
 export class BlockListController {
+  constructor(private readonly blockListService: BlockListService) {}
   @Get()
   @ApiOkResponse({
     type: BlockListDTO,
   })
-  getList(
+  async getBlockList(
     @Query() query: BlockListQueryDTO,
     @SessionInfo() session: SessionDTO,
-  ) {}
+  ): Promise<BlockListDTO> {
+    return await this.blockListService.getBlockListByParams(session.id, query);
+  }
 
   @Post()
   @ApiCreatedResponse({
     type: BlockListDTO,
   })
-  createBlockListItem(
+  async createBlockListItem(
     @Body() body: BlockListItemCreateDTO,
     @SessionInfo() session: SessionDTO,
-  ) {}
+  ): Promise<BlockListItemDTO> {
+    return await this.blockListService.addItem(session.id, body);
+  }
 
   @Delete()
   @ApiOkResponse()
-  removeBlockListItem(
+  async removeBlockListItem(
     @Param(ParseIntPipe) id: number,
     @SessionInfo() session: SessionDTO,
-  ) {}
+  ) {
+    return await this.blockListService.removeItem(session.id, id);
+  }
 }
