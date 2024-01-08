@@ -52,7 +52,7 @@ export class AuthController {
   @ApiOkResponse()
   @HttpCode(HttpStatus.OK)
   @UseGuards(AuthGuard)
-  signOut(@Res() res: Response) {
+  signOut(@Res({ passthrough: true }) res: Response) {
     this.cookieService.removeToken(res);
   }
 

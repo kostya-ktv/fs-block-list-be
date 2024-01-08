@@ -13,7 +13,7 @@ export class BlockListItemDTO {
   blockListId: number;
 
   @ApiProperty({
-    type: [BlockItemType],
+    type: BlockItemType,
   })
   type: $Enums.BlockItemType;
 
@@ -44,9 +44,9 @@ export class BlockListQueryDTO {
 }
 export class BlockListItemCreateDTO {
   @ApiProperty({
-    type: [BlockItemType],
+    type: BlockItemType,
   })
-  @IsIn([BlockItemType])
+  @IsIn(BlockItemType)
   type: $Enums.BlockItemType;
 
   @ApiProperty()
