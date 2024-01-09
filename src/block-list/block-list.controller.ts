@@ -9,7 +9,12 @@ import {
   Query,
   UseGuards,
 } from '@nestjs/common';
-import { ApiCreatedResponse, ApiOkResponse, ApiParam } from '@nestjs/swagger';
+import {
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiParam,
+  ApiQuery,
+} from '@nestjs/swagger';
 import { SessionDTO } from 'src/auth/auth.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { SessionInfo } from 'src/auth/session-info.decarator';
@@ -48,13 +53,13 @@ export class BlockListController {
   }
 
   @Delete()
-  @ApiParam({
+  @ApiQuery({
     name: 'id',
     type: 'number',
   })
   @ApiOkResponse()
   async removeBlockListItem(
-    @Param('id', ParseIntPipe) id: number,
+    @Query('id', ParseIntPipe) id: number,
     @SessionInfo() session: SessionDTO,
   ) {
     return await this.blockListService.removeItem(session.id, id);
