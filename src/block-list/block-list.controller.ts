@@ -3,21 +3,16 @@ import {
   Controller,
   Delete,
   Get,
-  Param,
   ParseIntPipe,
   Post,
   Query,
   UseGuards,
 } from '@nestjs/common';
-import {
-  ApiCreatedResponse,
-  ApiOkResponse,
-  ApiParam,
-  ApiQuery,
-} from '@nestjs/swagger';
+import { ApiCreatedResponse, ApiOkResponse, ApiQuery } from '@nestjs/swagger';
 import { SessionDTO } from 'src/auth/auth.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { SessionInfo } from 'src/auth/session-info.decarator';
+import { GetToken } from 'src/auth/token.decorator';
 import {
   BlockListDTO,
   BlockListItemCreateDTO,
@@ -48,6 +43,7 @@ export class BlockListController {
   async createBlockListItem(
     @Body() body: BlockListItemCreateDTO,
     @SessionInfo() session: SessionDTO,
+    @GetToken('access-token') token: string,
   ): Promise<BlockListItemDTO> {
     return await this.blockListService.addItem(session.id, body);
   }

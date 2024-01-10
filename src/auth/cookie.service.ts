@@ -8,6 +8,8 @@ export class CookieService {
     res.cookie(CookieService.tokenKey, token, {
       httpOnly: true,
       maxAge: 24 * 60 * 60 * 1000,
+      sameSite: 'none',
+      secure: true,
     });
   }
   removeToken(res: Response) {
